@@ -42,6 +42,14 @@ def filter_input_output(userInput):
     else:
        check_www(userInput)
 
+def clean_screen():
+    o_s = os.uname()
+    o_s = o_s[0]
+    if o_s == 'Linux':
+        os.system('clear')
+    elif o_s == "Windows":
+        os.system('cls')   
+
 
 banner ="""\033[0;31m
      
@@ -64,7 +72,7 @@ banner ="""\033[0;31m
     \033[0;36mScript: \033[0;31mSubdomain Finder with IP's
 
 """
-
+clean_screen()
 print(banner)
 user_input = input('\033[0;36m(+++) \033[0;31mEnter Target To Grab Subs: '+ "\033[0m")
 filter_input_output(user_input)
