@@ -22,7 +22,7 @@ def get_subs(user_input):#Za3ma BackEnd of the script
         IP = details[1]
         with open('subs.txt', 'a') as save:
             save.write('{} {}'.format(subdomain, IP) + '\n')
-        output = ' \033[0;31m(+++) Sub\033[0m {}\033[0m \033[0;31m(+++) IP \033[0m{}'.format(subdomain, IP)
+        output = ' \033[0;36m(+++) \033[0;31mSub\033[0m {}\033[0m \033[0;36m(+++) \033[0;31mIP \033[0m{}'.format(subdomain, IP)
         time.sleep(0.00001)
         print(output)
    
@@ -42,6 +42,30 @@ def filter_input_output(userInput):
     else:
        check_www(userInput)
 
-user_input = input('\033[0;31m(+++) Enter Target To Grab Subs: '+ "\033[0m")
+
+banner ="""\033[0;31m
+     
+  .--.       .--.
+    _  `    \     /    `  _
+     `\.===. \.^./ .===./`
+            \/`"`\/
+         ,  | Zrf |  ,
+        / `\|;-.-'|/` \\
+       /    |::\  |    \\
+    .-' ,-'`|:::; |`'-, '-.
+        |   |::::\|   | 
+        |   |::::;|   |
+        |   \:::://   |
+        |    `.://'   |
+       .'             `.
+    _,'                 `,_
+    
+    \033[0;36mCoded By: \033[0;31mZERF-003
+    \033[0;36mScript: \033[0;31mSubdomain Finder with IP's
+
+"""
+
+print(banner)
+user_input = input('\033[0;36m(+++) \033[0;31mEnter Target To Grab Subs: '+ "\033[0m")
 filter_input_output(user_input)
-print('\033[0;31m(+++) Saved in subs.txt')
+print('\033[0;36m(+++) \033[0;31mSaved in subs.txt')
