@@ -51,8 +51,7 @@ def clean_screen():
         os.system('cls')   
 
 
-banner ="""\033[0;31m
-     
+banner ="""\033[0;31m    
   .--.       .--.
     _  `    \     /    `  _
      `\.===. \.^./ .===./`
