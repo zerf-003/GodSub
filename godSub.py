@@ -1,78 +1,53 @@
-#!/usr/bin/python
+#coded by: Addad Billal
 
-#Coded By Zerf003
-#sub gather with IP 
 
-import requests 
-import os
-import sys
-import time
+import os 
+import sys 
+import time 
+import requests
 
-API_hacker_target = "https://api.hackertarget.com/hostsearch/?q="
+#CONST
+API = "https://api.hackertarget.com/hostsearch/?q="
 
-def get_subs(user_input):#Za3ma BackEnd of the script
-    url = API_hacker_target + str(user_input)
-    req  = requests.get(url, verify=True)
-    cont = req.content
-    cont = cont.decode('utf-8')
-    each_sub_details = cont.split('\n')
-    for details in each_sub_details:
-        details = details.split(',')
-        subdomain = details[0]
-        IP = details[1]
-        with open('subs.txt', 'a') as save:
-            save.write('{} {}'.format(subdomain, IP) + '\n')
-        output = ' \033[0;36m(+++) \033[0;31mSub\033[0m {}\033[0m \033[0;36m(+++) \033[0;31mIP \033[0m{}'.format(subdomain, IP)
-        time.sleep(0.00001)
-        print(output)
-   
-def filter_input_output(userInput):
-    def check_www(toMake_simple):# check for 'www' in the URL
+
+def GetSubs(userInput):
+    url = API + str(userInput)
+    req = requests.get(url, verify=True)
+    content = req.content.decode('utf-8')
+    if "error invalid host" in content:
+        print("Enter Something Correct ex: example.com")
+    else:
+
+        subs_details = content.split('\n')
+    
+        for details in subs_details:
+            if details.strip():  # Check if the line is not empty
+                subdomain, IP = details.split(',')
+                with open('subs.txt', 'a') as save:
+                    save.write(f'{subdomain} {IP}\n')
+                output = f' \033[0;36m(+++) \033[0;31mSub\033[0m {subdomain}\033[0m \033[0;36m(+++) \033[0;31mIP \033[0m{IP}'
+                time.sleep(0.00001)
+                print(output)
+
+
+def main (userInput):
+    def check_www(toMake_simple):
         if 'www' in toMake_simple:
             toMake_simple = toMake_simple.split('.')
             urlTarget = toMake_simple[1] + "." + toMake_simple[2]
-            get_subs(urlTarget)
+            GetSubs(urlTarget)
         else:
-            get_subs(toMake_simple)
+            GetSubs(toMake_simple)
 
     if userInput.startswith('http'):
-        simple = userInput.split('//')
-        simple = simple[1]
+        simple = userInput.split('//')[1]
         check_www(simple) 
     else:
-       check_www(userInput)
+        check_www(userInput)
 
-def clean_screen():
-    o_s = os.uname()
-    o_s = o_s[0]
-    if o_s == 'Linux':
-        os.system('clear')
-    elif o_s == "Windows":
-        os.system('cls')   
+os.system("clear || cls")
+print("\033[0;36mScript: \033[0;31mSubdomain Finder with IP's \033[0m")
+test  = input("Enter the URL or domain: ")
+main(test)
 
-
-banner ="""\033[0;31m    
-  .--.       .--.
-    _  `    \     /    `  _
-     `\.===. \.^./ .===./`
-            \/`"`\/
-         ,  | Zrf |  ,
-        / `\|;-.-'|/` \\
-       /    |::\  |    \\
-    .-' ,-'`|:::; |`'-, '-.
-        |   |::::\|   | 
-        |   |::::;|   |
-        |   \:::://   |
-        |    `.://'   |
-       .'             `.
-    _,'                 `,_
-    
-    \033[0;36mCoded By: \033[0;31mZERF-003
-    \033[0;36mScript: \033[0;31mSubdomain Finder with IP's
-
-"""
-clean_screen()
-print(banner)
-user_input = input('\033[0;36m(+++) \033[0;31mEnter Target To Grab Subs: '+ "\033[0m")
-filter_input_output(user_input)
-print('\033[0;36m(+++) \033[0;31mSaved in subs.txt')
+  
